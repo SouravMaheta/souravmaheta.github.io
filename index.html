@@ -6,7 +6,7 @@
     <title>Interactive Resume | Sourav Maheta</title>
     <!-- Chosen Palette: Warm Neutrals with Accents -->
     <!-- Application Structure Plan: A single-page portfolio with smooth-scroll navigation. It features distinct interactive timelines for career experience and education, a skills dashboard with a radar chart, and a project showcase with clickable cards. This structure tells a professional story, making it more engaging and easier for recruiters to digest key strengths compared to a static resume format. -->
-    <!-- Visualization & Content Choices: 1. Career/Education: Goal=Show Progression, Viz=Two separate Interactive HTML/CSS Timelines (one for Experience, one for Education), Interaction=Click to reveal details, Justification=Provides a clear visual partition between professional and academic progress, improving navigability. 2. Skills: Goal=Compare Strengths, Viz=Chart.js Radar Chart (high-level), Filterable HTML/CSS Skill Tags (detailed), Interaction=Tooltips on chart, Clickable category buttons to filter skill tags, and hover effect on individual skill tags with border color, Justification=Offers both a quick visual summary and a detailed, explorable list of competencies with enhanced interaction. 3. Projects: Goal=Organize & Detail, Viz=HTML/CSS Cards, Interaction=Click to expand/reveal more info (via modal, or full content directly on card if needed), Justification=Showcases practical work cleanly and allows detailed exploration; now displays full description on card and in modal. CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- Visualization & Content Choices: 1. Career/Education: Goal=Show Progression, Viz=Two separate Interactive HTML/CSS Timelines (one for Experience, one for Education), Interaction=Click to reveal details, Justification=Provides a clear visual partition between professional and academic progress, improving navigability. 2. Skills: Goal=Compare Strengths, Viz=Horizontal Bar Chart, Filterable HTML/CSS Skill Tags (detailed), Interaction=Tooltips on chart, Clickable category buttons to filter skill tags, and hover effect on individual skill tags with border color, Justification=Offers both a quick visual summary and a detailed, explorable list of competencies with enhanced interaction. 3. Projects: Goal=Organize & Detail, Viz=HTML/CSS Cards, Interaction=Click to expand/reveal more info (via modal, or full content directly on card if needed), Justification=Showcases practical work cleanly and allows detailed exploration; now displays full description on card and in modal. CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -17,7 +17,26 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #FDFBF8; /* Warm off-white */
+            background-image: linear-gradient(to bottom right, #F9F7F5, #F5F3F1); /* Slightly darker subtle gradient */
             color: #383838;
+        }
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px; /* Space for the underline */
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #D35400; /* Accent color */
+            transition: width 0.3s ease-out;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
         }
         .nav-link.active {
             color: #D35400; /* Accent 1 */
@@ -42,16 +61,16 @@
         .chart-container {
             position: relative;
             margin: auto;
-            height: 40vh;
-            max-height: 400px;
+            height: 40vh; /* Reverted size */
+            max-height: 400px; /* Reverted max size */
             width: 100%;
-            max-width: 450px;
+            max-width: 450px; /* Reverted max size */
         }
         @media (min-width: 768px) {
             .chart-container {
-                height: 50vh;
-                max-height: 500px;
-                max-width: 500px;
+                height: 50vh; /* Reverted size for larger screens */
+                max-height: 500px; /* Reverted max size for larger screens */
+                max-width: 500px; /* Reverted max size for larger screens */
             }
         }
 
@@ -129,11 +148,82 @@
         }
         /* Individual skill tag hover */
         .skill-tag-item {
-            @apply bg-gray-100 text-gray-700 text-center py-2 px-3 rounded-lg text-sm font-medium border border-transparent transition-colors duration-200;
+            /* Applied styles to match education timeline button feel while keeping size */
+            @apply bg-white text-[#D35400] text-left py-2 px-4 rounded-lg border-2 border-gray-200 font-medium transition-colors duration-300;
+            position: relative; /* Needed for tooltip positioning */
         }
         .skill-tag-item:hover {
-            border-color: #4A90E2; /* Accent 2 */
-            background-color: #FEEEDD; /* A very light orange for highlight */
+            /* This makes the background orange and text white on hover, matching timeline buttons */
+            @apply bg-[#D35400] text-white border-[#D35400]; /* Match timeline button hover */
+            transform: translateY(-2px); /* Slight lift on hover, less than project card */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Subtle shadow on hover */
+        }
+
+        /* Tooltip styles */
+        .skill-tooltip {
+            position: absolute;
+            bottom: 100%; /* Position above the skill tag */
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px); /* Center and move up */
+            background-color: #383838; /* Dark background */
+            color: #FFFFFF;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            white-space: nowrap; /* Prevent text wrapping */
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+            pointer-events: none; /* Allow clicks through the tooltip */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .skill-tooltip.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-20px); /* Move up slightly on show */
+        }
+
+        .skill-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%; /* Arrow at the bottom */
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #383838 transparent transparent transparent; /* Pointing down */
+        }
+
+        /* Section entry animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 32px; /* 8 units */
+            right: 32px; /* 8 units */
+            background-color: #D35400; /* Accent color */
+            color: white;
+            padding: 12px; /* 3 units */
+            border-radius: 9999px; /* Full rounded */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 40;
+            cursor: pointer;
+        }
+        #back-to-top.show {
+            opacity: 1;
         }
     </style>
 </head>
@@ -152,7 +242,7 @@
                 <a href="#projects" class="nav-link text-gray-600 hover:text-[#D35400] transition-colors duration-300">Projects</a>
                 <a href="#contact" class="nav-link text-gray-600 hover:text-[#D35400] transition-colors duration-300">Contact</a>
             </div>
-             <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+               <button id="mobile-menu-button" class="md:hidden focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
@@ -167,7 +257,7 @@
 
     <main>
         <!-- Section: Professional Summary -->
-        <section id="summary" class="py-20 md:py-32">
+        <section id="summary" class="py-20 md:py-32 fade-in-section">
             <div class="container mx-auto px-6 text-center">
                 <h1 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight animated-heading">Sourav Maheta</h1>
                 <p class="text-lg md:text-xl text-gray-600 mt-4 animated-heading" style="animation-delay: 0.2s;">Assistant Manager | Salesforce Administrator | AI Enthusiast</p>
@@ -181,11 +271,11 @@
         </section>
 
         <!-- Section: Career & Education Journey -->
-        <section id="journey" class="py-20 bg-white">
+        <section id="journey" class="py-20 bg-white fade-in-section">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-[#D35400]">Career & Education Journey</h2>
-                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">An interactive timeline of my professional experience and academic milestones. Click on an entry to see the details.</p>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">An interactive timeline of my professional experience and academic milestones. <span class="font-semibold text-gray-700">Click on an entry to see the details.</span></p>
                 </div>
                 <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
                     <!-- Experience Timeline -->
@@ -211,29 +301,20 @@
         </section>
 
         <!-- Section: Skills -->
-        <section id="skills" class="py-20">
+        <section id="skills" class="py-20 fade-in-section">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-[#D35400]">Core Competencies</h2>
-                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A visual representation of my technical skills. Explore the radar chart for overall proficiency and use the filters below to browse detailed skills by category.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#D35400]">Core Competencies & Technologies</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A visual representation of my technical skills. Explore the bar chart for overall proficiency and hover over individual skills for details.</p>
                 </div>
-                <div class="flex flex-col lg:flex-row items-center justify-center gap-12">
-                    <div class="w-full lg:w-1/2">
-                         <div class="chart-container mx-auto">
-                            <canvas id="skillsChart"></canvas>
-                        </div>
+                <div class="flex flex-col items-center justify-center gap-12">
+                    <div class="w-full">
+                           <div class="chart-container mx-auto">
+                                <canvas id="skillsChart"></canvas>
+                            </div>
                     </div>
-                    <div class="w-full lg:w-1/2">
-                        <div id="skill-filters" class="flex flex-wrap gap-2 mb-6 justify-center lg:justify-start">
-                            <button data-category="All" class="skill-filter-button active">All Skills</button>
-                            <button data-category="Salesforce & CRM" class="skill-filter-button">Salesforce & CRM</button>
-                            <button data-category="Databases & Data" class="skill-filter-button">Databases & Data</button>
-                            <button data-category="Programming & Dev" class="skill-filter-button">Programming & Dev</button>
-                            <button data-category="BI & Visualization" class="skill-filter-button">BI & Visualization</button>
-                            <button data-category="Operating Systems" class="skill-filter-button">Operating Systems</button>
-                            <button data-category="Problem Solving & Tools" class="skill-filter-button">Problem Solving & Tools</button>
-                            <button data-category="Collaboration" class="skill-filter-button">Collaboration</button>
-                        </div>
+                    <div class="w-full">
+                        <!-- Removed skill-filters div as requested -->
                         <div id="skills-list" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                             <!-- Skills will be dynamically inserted here -->
                         </div>
@@ -243,11 +324,11 @@
         </section>
 
         <!-- Section: Projects -->
-        <section id="projects" class="py-20 bg-white">
+        <section id="projects" class="py-20 bg-white fade-in-section">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-[#D35400]">Projects & Publications</h2>
-                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A selection of projects that showcase my practical skills and passion for technology.</p>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A selection of projects that showcase my practical skills and passion for technology. <span class="font-semibold text-gray-700">Click on a project card for more details.</span></p>
                 </div>
                 <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Project cards will be dynamically inserted here -->
@@ -256,20 +337,27 @@
         </section>
 
         <!-- Section: Contact -->
-        <section id="contact" class="py-20">
+        <section id="contact" class="py-20 fade-in-section">
             <div class="container mx-auto px-6 text-center">
-                 <h2 class="text-3xl md:text-4xl font-bold text-[#D35400]">Get In Touch</h2>
-                 <p class="text-gray-600 mt-4 mb-8">Feel free to reach out for collaborations or opportunities.</p>
-                 <div class="inline-flex items-center space-x-8">
-                     <div class="flex items-center space-x-3">
-                         <svg class="w-6 h-6 text-[#D35400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                         <a href="mailto:sourav.maheta676@gmail.com" class="text-gray-700 hover:text-[#D35400]">sourav.maheta676@gmail.com</a>
-                     </div>
-                     <div class="flex items-center space-x-3">
-                         <svg class="w-6 h-6 text-[#D35400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                         <span class="text-gray-700">+91 8806145164</span>
-                     </div>
-                 </div>
+                   <h2 class="text-3xl md:text-4xl font-bold text-[#D35400]">Get In Touch</h2>
+                   <p class="text-gray-600 mt-4 mb-8">Feel free to reach out for collaborations or opportunities.</p>
+                   <div class="inline-flex items-center space-x-8">
+                       <div class="flex items-center space-x-3">
+                           <svg class="w-6 h-6 text-[#D35400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                           <a href="mailto:sourav.maheta676@gmail.com" class="text-gray-700 hover:text-[#D35400]">sourav.maheta676@gmail.com</a>
+                       </div>
+                       <div class="flex items-center space-x-3">
+                           <svg class="w-6 h-6 text-[#D35400]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                           <span class="text-gray-700">+91 8806145164</span>
+                       </div>
+                   </div>
+                   <div class="flex flex-wrap justify-center items-center space-x-6 mt-6">
+                       <a href="https://www.linkedin.com/in/sourav-maheta-4b646b21a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-[#D35400] transition-colors duration-300">
+                           <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                               <path fill-rule="evenodd" d="M19 0H5C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5V5c0-2.761-2.239-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765s1.55-1.765 3.25-1.765c3.54 0 4.75 2.07 4.75 5.834V19z" clip-rule="evenodd" />
+                           </svg>
+                       </a>
+                   </div>
             </div>
         </section>
     </main>
@@ -285,11 +373,21 @@
         </div>
     </div>
 
+    <!-- Skill Tooltip Element -->
+    <div id="skill-tooltip" class="skill-tooltip hidden"></div>
+
     <footer class="bg-gray-800 text-white py-4">
         <div class="container mx-auto px-6 text-center text-sm">
             <p>&copy; 2025 Sourav Maheta.</p>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-[#D35400] text-white p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 z-40">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -303,28 +401,47 @@
                 { id: 'ssc', type: 'Education', title: 'S.S.C', institution: 'St. Xavier\'s High School, Virar', period: 'Graduated: 2016', description: 'Completed Secondary School Certificate, laying the groundwork for further academic pursuits.' }
             ];
 
-            const skillsRadarData = { // Data for the radar chart
-                labels: ['Salesforce', 'Databases', 'BI & Viz', 'Programming', 'Problem Solving', 'Collaboration'],
+            const skillsBarData = { // Data for the horizontal bar chart
+                labels: ['Salesforce', 'Data & SQL', 'Programming', 'BI & Tools', 'Problem Solving', 'Collaboration'],
                 datasets: [{
                     label: 'Proficiency',
-                    data: [9, 8, 8, 7, 9, 8], // Scores out of 10
-                    backgroundColor: 'rgba(211, 84, 0, 0.2)',
+                    data: [9, 8, 7, 8, 9, 8], // Scores out of 10
+                    backgroundColor: 'rgba(211, 84, 0, 0.8)', // Solid color for bars
                     borderColor: 'rgba(211, 84, 0, 1)',
-                    pointBackgroundColor: 'rgba(211, 84, 0, 1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(211, 84, 0, 1)'
+                    borderWidth: 1
                 }]
             };
 
             const skillsCategorized = [ // Data for the filterable skill list
-                { category: 'Salesforce & CRM', skills: ['Salesforce Admin', 'Salesforce Datorama'] },
-                { category: 'Databases & Data', skills: ['SQL', 'SOQL', 'Data Analysis'] },
-                { category: 'Programming & Dev', skills: ['Python', 'Arduino Programming'] },
-                { category: 'BI & Visualization', skills: ['Tableau', 'Interactive Dashboards'] },
-                { category: 'Operating Systems', skills: ['Windows'] }, // Removed Linux
-                { category: 'Problem Solving & Tools', skills: ['Root Cause Analysis', 'System Optimization'] }, // Removed Figma
-                { category: 'Collaboration', skills: ['Cross-functional Teams'] }
+                { category: 'Salesforce & CRM', skills: [
+                    { name: 'Salesforce Administrator', description: 'Proficient in Salesforce administration, including user management, data security, and custom object creation.' },
+                    { name: 'Salesforce Datorama', description: 'Experienced in designing and developing interactive dashboards for marketing intelligence.' },
+                    { name: 'Apex Queries', description: 'Skilled in developing custom functionalities and integrations using Apex.' },
+                    { name: 'Salesforce Debugging - Apex', description: 'Proficient in debugging Apex code and Salesforce platform issues using Developer Console and debug logs.' }
+                ]},
+                { category: 'Databases & Data Analytics', skills: [
+                    { name: 'SOQL', description: 'Expert in Salesforce Object Query Language for efficient data retrieval within Salesforce.' },
+                    { name: 'SQL', description: 'Skilled in writing complex SQL queries for data extraction and manipulation.' },
+                    { name: 'Data Analytics', description: 'Adept at analyzing large datasets to identify trends, root causes, and actionable insights.' }
+                ]},
+                { category: 'Programming', skills: [
+                    { name: 'Python', description: 'Competent in Python for scripting, data processing, and automation tasks.' },
+                    { name: 'Arduino Programming', description: 'Hands-on experience in programming Arduino microcontrollers for IoT projects.' }
+                ]},
+                { category: 'BI & Tools', skills: [
+                    { name: 'Tableau Visualization', description: 'Capable of creating compelling and interactive data visualizations and dashboards in Tableau.' },
+                    { name: 'Microsoft Excel', description: 'Proficient in advanced Excel functions for data manipulation and reporting.' },
+                    { name: 'GIT', description: 'Experienced in using GIT for collaborative software development and version management.' },
+                    { name: 'JIRA', description: 'Skilled in using JIRA for project tracking, issue management, and agile methodologies.' },
+                    { name: 'Workbench', description: 'Proficient in using Salesforce Workbench for data manipulation, querying, and testing Apex.' }
+                ]},
+                { category: 'Problem Solving & AI', skills: [
+                    { name: 'Root Cause Analysis', description: 'Strong ability to identify underlying causes of issues and develop effective solutions.' },
+                    { name: 'Leveraging AI for Daily Tasks', description: 'Adept at integrating AI tools and concepts to enhance productivity and problem-solving in daily operations.' }
+                ]},
+                { category: 'Collaboration', skills: [
+                    { name: 'Cross-functional Collaboration', description: 'Proven ability to collaborate effectively with diverse teams to achieve project goals.' }
+                ]}
             ];
 
             const projectsData = [
@@ -370,6 +487,11 @@
                 educationTimelineButtonsContainer.appendChild(button);
             });
 
+            // Set default content for timeline display
+            if (experienceJourney.length > 0) {
+                displayTimelineContent(experienceJourney[0].id);
+            }
+
 
             function displayTimelineContent(id) {
                 const item = journeyData.find(j => j.id === id);
@@ -404,35 +526,36 @@
 
             // Skills Chart & List
             const ctx = document.getElementById('skillsChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'radar',
-                data: skillsRadarData,
+            const skillsChartInstance = new Chart(ctx, { // Store chart instance
+                type: 'bar', // Changed to bar chart
+                data: skillsBarData, // Using skillsBarData
                 options: {
+                    indexAxis: 'y', // Makes it a horizontal bar chart
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        r: {
-                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
-                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
-                            pointLabels: { font: { size: 12 }, color: '#383838',
-                                callback: function(value) {
-                                    if (value.length > 16) {
-                                        return value.split(' ').map((word, index, arr) => {
-                                            const totalLength = arr.slice(0, index + 1).join(' ').length;
-                                            return totalLength > 16 && index > 0 ? '\n' + word : word;
-                                        }).join(' ');
-                                    }
-                                    return value;
+                        x: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 10,
+                            ticks: {
+                                stepSize: 1,
+                                color: '#383838'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#383838',
+                                font: {
+                                    size: 12 // Adjusted font size for y-axis labels
                                 }
                             },
-                            ticks: {
-                                backdropColor: '#FDFBF8',
-                                color: 'rgba(0,0,0,0.5)',
-                                stepSize: 2,
-                                display: false
-                            },
-                             min: 0,
-                             max: 10
+                            grid: {
+                                display: false // Hide horizontal grid lines
+                            }
                         }
                     },
                     plugins: {
@@ -449,37 +572,60 @@
             });
 
             const skillsListContainer = document.getElementById('skills-list');
-            const skillFilterButtons = document.querySelectorAll('.skill-filter-button');
+            const skillFilterButtons = document.querySelectorAll('.skill-filter-button'); // Keep this for reference, but it won't be used
+            const skillTooltip = document.getElementById('skill-tooltip');
+
 
             function renderSkills(category) {
                 skillsListContainer.innerHTML = ''; // Clear current skills
-                let filteredSkills = [];
-                if (category === 'All') {
-                    skillsCategorized.forEach(cat => {
-                        filteredSkills = filteredSkills.concat(cat.skills);
-                    });
-                } else {
-                    const selectedCategory = skillsCategorized.find(cat => cat.category === category);
-                    if (selectedCategory) {
-                        filteredSkills = selectedCategory.skills;
-                    }
-                }
+                let allSkills = [];
+                // Since filters are removed, always render all skills
+                skillsCategorized.forEach(cat => {
+                    allSkills = allSkills.concat(cat.skills);
+                });
+                
 
-                filteredSkills.forEach(skill => {
+                allSkills.forEach(skill => {
                     const skillTag = document.createElement('div');
                     skillTag.className = 'skill-tag-item'; // Use new class for hover effect
-                    skillTag.textContent = skill;
+                    skillTag.textContent = skill.name;
+                    skillTag.dataset.description = skill.description; // Store description
+
+                    // Add hover event listeners for tooltip
+                    skillTag.addEventListener('mouseover', (e) => {
+                        skillTooltip.textContent = skill.description;
+                        skillTooltip.classList.add('show');
+                        
+                        // Position the tooltip
+                        const rect = e.target.getBoundingClientRect();
+                        skillTooltip.style.left = `${rect.left + rect.width / 2}px`;
+                        skillTooltip.style.top = `${rect.top}px`; // Will be adjusted by transform translateY(-20px)
+                    });
+
+                    skillTag.addEventListener('mouseout', () => {
+                        skillTooltip.classList.remove('show');
+                    });
+
                     skillsListContainer.appendChild(skillTag);
                 });
             }
 
-            skillFilterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    skillFilterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    renderSkills(button.dataset.category);
-                });
+            // Remove event listener for skill filter buttons as they are removed from HTML
+            // skillFilterButtons.forEach(button => {
+            //     button.addEventListener('click', () => {
+            //         skillFilterButtons.forEach(btn => btn.classList.remove('active'));
+            //         button.classList.add('active');
+            //         renderSkills(button.dataset.category);
+            //     });
+            // });
+
+            // Add click event listener to the bar chart (if needed, currently no filtering logic tied to it)
+            document.getElementById('skillsChart').addEventListener('click', (e) => {
+                // This event listener can be used for future interactivity with the bar chart,
+                // for example, to filter the skills list based on the clicked bar.
+                // For now, it doesn't trigger any specific filtering as per the current design.
             });
+
 
             // Initial render of all skills
             renderSkills('All');
@@ -531,59 +677,101 @@
 
             closeModalButton.addEventListener('click', () => {
                 projectModalOverlay.classList.remove('show');
-                setTimeout(() => projectModalOverlay.classList.add('hidden'), 300); // Add hidden class after transition
+                setTimeout(() => projectModalOverlay.classList.add('hidden'), 300); // Hide after transition
             });
 
             projectModalOverlay.addEventListener('click', (e) => {
                 if (e.target === projectModalOverlay) {
                     projectModalOverlay.classList.remove('show');
-                    setTimeout(() => projectModalOverlay.classList.add('hidden'), 300); // Add hidden class after transition
+                    setTimeout(() => projectModalOverlay.classList.add('hidden'), 300); // Hide after transition
                 }
             });
-
-
-            // --- EVENT LISTENERS & DYNAMIC BEHAVIOR ---
-
-            // Initial content display
-            // Display the first experience item if available, otherwise the first education item
-            if (experienceJourney.length > 0) {
-                 displayTimelineContent(experienceJourney[0].id);
-            } else if (educationJourney.length > 0) {
-                 displayTimelineContent(educationJourney[0].id);
-            }
 
             // Mobile menu toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
-            
-            // Close mobile menu on link click
-            document.querySelectorAll('#mobile-menu a').forEach(link => {
+
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
                 });
             });
 
-            // Active Nav Link on Scroll
-            const sections = document.querySelectorAll('section');
+            // Highlight active navigation link based on scroll position
+            const sections = document.querySelectorAll('main section');
             const navLinks = document.querySelectorAll('.nav-link');
-            
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - 70) {
-                        current = section.getAttribute('id');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3 // Adjust this value as needed
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
                     }
                 });
+            }, observerOptions);
 
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').includes(current)) {
-                        link.classList.add('active');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Set initial active state for the first section if it's in view on load
+            if (sections.length > 0) {
+                const firstSectionId = sections[0].id;
+                const firstNavLink = document.querySelector(`.nav-link[href="#${firstSectionId}"]`);
+                if (firstNavLink) {
+                    firstNavLink.classList.add('active');
+                }
+            }
+
+            // Section entry animation observer
+            const sectionsToAnimate = document.querySelectorAll('.fade-in-section');
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Stop observing once visible
                     }
+                });
+            }, {
+                root: null, // viewport
+                rootMargin: '0px',
+                threshold: 0.2 // Trigger when 20% of the section is visible
+            });
+
+            sectionsToAnimate.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Back to Top Button logic
+            const backToTopButton = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 200) { // Show button after scrolling 200px
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
             });
         });
