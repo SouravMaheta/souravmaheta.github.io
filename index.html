@@ -369,7 +369,7 @@
             <h3 id="modal-project-title" class="text-2xl font-bold text-gray-800 mb-3"></h3>
             <p id="modal-project-category" class="text-sm font-semibold text-[#D35400] mb-2"></p>
             <p id="modal-project-description" class="text-gray-700 leading-relaxed"></p>
-            <a id="modal-project-link" href="#" target="_blank" rel="noopener noreferrer" class="hidden inline-block mt-6 text-white bg-gray-800 hover:bg-black font-semibold py-2 px-4 rounded-lg transition-colors duration-300">View Publication</a>
+            <a id="modal-project-link" href="#" target="_blank" rel="noopener noreferrer" class="hidden inline-block mt-6 text-white bg-gray-800 hover:bg-black font-semibold py-2 px-4 rounded-lg transition-colors duration-300">View Project/Publication</a>
         </div>
     </div>
 
@@ -426,6 +426,7 @@
                 ]},
                 { category: 'Programming', skills: [
                     { name: 'Python', description: 'Competent in Python for scripting, data processing, and automation tasks.' },
+					{ name: 'Data Science', description: 'Competent in Python libraries for data processing, and automation tasks.' },
                     { name: 'Arduino Programming', description: 'Hands-on experience in programming Arduino microcontrollers for IoT projects.' }
                 ]},
                 { category: 'BI & Tools', skills: [
@@ -446,6 +447,8 @@
 
             const projectsData = [
                 { id: 'safety-device', title: "Women's Smart Safety Device", category: "IoT & Publication", description: "Developed an innovative safety device using Arduino programming. This project led to a research paper publication in the Gyancity Journal of Engineering and Technology (Vol.8 No.1: January 2022, Sno. 2). This device was designed to enhance personal safety through real-time alerts and location tracking, demonstrating practical application of embedded systems and IoT principles.", link: "https://www.gjet.gyancity.com/Vol8_No1_No2_2022.html" },
+				{ id: 'tableau', title: "Tableau interactive Dashboard for L2 tickets analysis, Location/branch wise", category: "Tableau & Data Analytics", description: "Created an interactive Tableau dashboard to analyze tickets data based on location and branches for higher management. Identified key contributors to the tickets and provided data-driven recommendations to improve production stability", link: "https://public.tableau.com/views/L2TicketsLocationwise-Dashboard/Dashboard1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" },
+				{ id: 'AI financial market analysis', title: "AI-Driven Financial Market Analysis ", category: "AI, Python, Data Science", description: "AI-Driven Financial Market Analysis and Volatility Forecasting. Analyzing the historical performance of a stock (NVDA) and developing predictive models for short-term price forecasting", link: "https://github.com/SouravMaheta/AI-driven---Advanced-Financial-Markey-Analysis" },
                 { id: 'smart-dustbin', title: "Smart Dustbin", category: "IoT", description: "Engineered an automated smart dustbin system, leveraging Arduino programming for enhanced and efficient waste management. The system incorporated ultrasonic sensors to detect fill levels and a servo mechanism for automated lid control, improving sanitation and resource allocation.", link: null },
                 { id: 'temp-sensor', title: "Temperature Sensor", category: "IoT & Cloud", description: "Implemented a temperature sensor utilizing LM35, integrated with the ThingsSpeak Cloud server to facilitate remote temperature monitoring from any location. This project showcased data logging, cloud integration, and remote accessibility for environmental monitoring applications.", link: null }
             ];
