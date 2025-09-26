@@ -43,29 +43,11 @@
             }
         }
 
-        /* Light & Dark Mode Variables */
-        :root {
-            --primary-color: #1E88E5;
-            --primary-text: #212121;
-            --secondary-text: #616161;
-            --background-light: #F8F8F8;
-            --surface-white: #FFFFFF;
-        }
-
-        .dark {
-            --primary-color: #9333ea; /* A vibrant purple for dark mode contrast */
-            --primary-text: #cbd5e1; /* A soft, off-white for main text */
-            --secondary-text: #94a3b8; /* A darker slate for secondary text */
-            --background-light: #0f172a; /* Deep slate background */
-            --surface-white: #1e293b; /* Slightly lighter slate for cards/surfaces */
-        }
-
         /* General Styles */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--background-light);
-            color: var(--primary-text);
-            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            background-color: #F8F8F8;
+            color: #212121;
         }
 
         .heading-font {
@@ -84,7 +66,7 @@
             height: 2px;
             bottom: 0;
             left: 0;
-            background-color: var(--primary-color);
+            background-color: #1E88E5;
             transition: width 0.3s ease-out;
         }
 
@@ -94,18 +76,18 @@
         }
 
         .nav-link.active {
-            color: var(--primary-color);
+            color: #1E88E5;
             font-weight: 700;
         }
 
         .timeline-button.active {
-            background-color: var(--primary-color);
-            color: var(--surface-white);
-            border-color: var(--primary-color);
+            background-color: #1E88E5;
+            color: #FFFFFF;
+            border-color: #1E88E5;
         }
 
         .project-card, .section-card {
-            background-color: var(--surface-white);
+            background-color: #FFFFFF;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
         
@@ -154,7 +136,7 @@
         }
 
         .modal-content {
-            background-color: var(--surface-white);
+            background-color: #FFFFFF;
             padding: 32px;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -177,7 +159,7 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            color: var(--secondary-text);
+            color: #616161;
         }
 
         /* Section entry animation */
@@ -192,7 +174,7 @@
             transform: translateY(0);
         }
 
-        /* Back to Top Button & Dark Mode Toggle */
+        /* Back to Top Button */
         .utility-buttons {
             position: fixed;
             bottom: 32px;
@@ -204,8 +186,8 @@
         }
 
         .utility-button {
-            background-color: var(--primary-color);
-            color: var(--surface-white);
+            background-color: #1E88E5;
+            color: #FFFFFF;
             padding: 12px;
             border-radius: 9999px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -245,36 +227,36 @@
     </div>
 
     <!-- Header & Navigation -->
-    <header class="bg-white/80 dark:bg-black/80 backdrop-blur-md sticky top-0 z-50 shadow-sm transition-colors duration-300">
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-xl font-bold heading-font text-gray-800 dark:text-gray-200 transition-colors duration-300">
+            <div class="text-xl font-bold heading-font text-gray-800">
                 Sourav Maheta
             </div>
             <div class="hidden md:flex space-x-8">
-                <a href="#summary" class="nav-link text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Summary</a>
-                <a href="#about" class="nav-link text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">About Me</a>
-                <a href="#journey" class="nav-link text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Journey</a>
-                <a href="#skills" class="nav-link text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Skills</a>
-                <a href="#projects" class="nav-link text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Projects</a>
-                <a href="#contact" class="nav-link text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Contact</a>
+                <a href="#summary" class="nav-link text-gray-600 hover:text-blue-600">Summary</a>
+                <a href="#about" class="nav-link text-gray-600 hover:text-blue-600">About Me</a>
+                <a href="#journey" class="nav-link text-gray-600 hover:text-blue-600">Journey</a>
+                <a href="#skills" class="nav-link text-gray-600 hover:text-blue-600">Skills</a>
+                <a href="#projects" class="nav-link text-gray-600 hover:text-blue-600">Projects</a>
+                <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600">Contact</a>
             </div>
             <div class="flex items-center space-x-4">
-                <a href="sourav_maheta_resume.pdf" download="sourav_maheta_resume.pdf" class="hidden sm:inline-block px-4 py-2 text-sm font-semibold rounded-lg text-white bg-gray-800 dark:bg-gray-200 dark:text-gray-800 hover:bg-black dark:hover:bg-white transition-colors duration-300">Download Resume</a>
-                <button id="mobile-menu-button" aria-label="Open mobile menu" class="md:hidden focus:outline-none text-gray-700 dark:text-gray-300">
+                <a href="sourav_maheta_resume.pdf" download="sourav_maheta_resume.pdf" class="hidden sm:inline-block px-4 py-2 text-sm font-semibold rounded-lg text-white bg-gray-800 hover:bg-black">Download Resume</a>
+                <button id="mobile-menu-button" aria-label="Open mobile menu" class="md:hidden focus:outline-none text-gray-700">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
                 </button>
             </div>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 transition-colors duration-300 shadow-md">
-            <a href="#summary" class="block py-2 px-6 text-sm text-gray-700 dark:text-gray-300">Summary</a>
-            <a href="#about" class="block py-2 px-6 text-sm text-gray-700 dark:text-gray-300">About Me</a>
-            <a href="#journey" class="block py-2 px-6 text-sm text-gray-700 dark:text-gray-300">Journey</a>
-            <a href="#skills" class="block py-2 px-6 text-sm text-gray-700 dark:text-gray-300">Skills</a>
-            <a href="#projects" class="block py-2 px-6 text-sm text-gray-700 dark:text-gray-300">Projects</a>
-            <a href="#contact" class="block py-2 px-6 text-sm text-gray-700 dark:text-gray-300">Contact</a>
-            <a href="sourav_maheta_resume.pdf" download="sourav_maheta_resume.pdf" class="block w-full text-left py-2 px-6 text-sm font-semibold text-gray-700 dark:text-gray-300">Download Resume</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+            <a href="#summary" class="block py-2 px-6 text-sm text-gray-700">Summary</a>
+            <a href="#about" class="block py-2 px-6 text-sm text-gray-700">About Me</a>
+            <a href="#journey" class="block py-2 px-6 text-sm text-gray-700">Journey</a>
+            <a href="#skills" class="block py-2 px-6 text-sm text-gray-700">Skills</a>
+            <a href="#projects" class="block py-2 px-6 text-sm text-gray-700">Projects</a>
+            <a href="#contact" class="block py-2 px-6 text-sm text-gray-700">Contact</a>
+            <a href="sourav_maheta_resume.pdf" download="sourav_maheta_resume.pdf" class="block w-full text-left py-2 px-6 text-sm font-semibold text-gray-700">Download Resume</a>
         </div>
     </header>
 
@@ -282,9 +264,9 @@
         <!-- Section: Hero -->
         <section id="hero" class="py-12 md:py-16 fade-in-section">
             <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold leading-tight heading-font text-gray-800 dark:text-white">Hi, I'm Sourav.</h1>
-                <p class="text-xl md:text-2xl text-blue-600 dark:text-blue-400 font-semibold mt-2">Application Support Engineer L2 | AI Enthusiast</p>
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight heading-font text-gray-800">Hi, I'm Sourav.</h1>
+                <p class="text-xl md:text-2xl text-blue-600 font-semibold mt-2">Application Support Engineer L2 | AI Enthusiast</p>
+                <p class="text-lg md:text-xl text-gray-600 mt-4 max-w-2xl mx-auto">
                     A dedicated problem-solver with a passion for transforming data into actionable insights.
                 </p>
             </div>
@@ -293,9 +275,9 @@
         <!-- Section: Professional Summary -->
         <section id="summary" class="py-8 md:py-10 fade-in-section">
             <div class="container mx-auto px-6">
-                <div class="max-w-3xl mx-auto section-card p-8 rounded-xl shadow-lg border border-gray-100 dark:border-gray-800">
-                    <h2 class="text-2xl font-bold mb-4 heading-font text-gray-800 dark:text-white">Professional Summary</h2>
-                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <div class="max-w-3xl mx-auto section-card p-8 rounded-xl shadow-lg border border-gray-100">
+                    <h2 class="text-2xl font-bold mb-4 heading-font">Professional Summary</h2>
+                    <p class="text-gray-700 leading-relaxed">
                         Results-oriented with over three years of experience in Salesforce administration and IT support. I excel at resolving production issues, analyzing data with SOQL and SQL, and creating dashboards using Tableau and Salesforce Datorama. I am currently pursuing an Executive M.Tech in Applied AI to leverage advanced skills for technological innovation.
                     </p>
                 </div>
@@ -305,9 +287,9 @@
         <!-- Section: About Me -->
         <section id="about" class="py-8 md:py-10 fade-in-section">
             <div class="container mx-auto px-6 text-center">
-                <div class="max-w-3xl mx-auto text-left section-card p-8 rounded-xl shadow-lg border border-gray-100 dark:border-gray-800">
-                    <h2 class="text-2xl font-bold mb-4 heading-font text-gray-800 dark:text-white">A Little More About My Journey</h2>
-                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <div class="max-w-3xl mx-auto text-left section-card p-8 rounded-xl shadow-lg border border-gray-100">
+                    <h2 class="text-2xl font-bold mb-4 heading-font">A Little More About My Journey</h2>
+                    <p class="text-gray-700 leading-relaxed">
                         My career began with a fascination for solving complex puzzles, leading me to a B.Tech in Computer Science. Professionally, I've bridged the gap between technical operations and business needs, ensuring smooth application performance. Now, I'm excited to combine my hands-on experience with cutting-edge AI concepts, driven by a desire to create elegant and impactful solutions.
                     </p>
                 </div>
@@ -315,31 +297,31 @@
         </section>
 
         <!-- Section: Career & Education Journey -->
-        <section id="journey" class="py-20 section-card fade-in-section border-t border-b border-gray-100 dark:border-gray-800">
+        <section id="journey" class="py-20 section-card fade-in-section border-t border-b border-gray-100">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold heading-font text-blue-600 dark:text-blue-400">Career & Education Journey</h2>
-                    <p class="text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">An interactive timeline of my professional experience and academic milestones. <span class="font-semibold">Click to see the details.</span></p>
+                    <h2 class="text-3xl md:text-4xl font-bold heading-font text-blue-600">Career & Education Journey</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">An interactive timeline of my professional experience and academic milestones. <span class="font-semibold">Click to see the details.</span></p>
                 </div>
                 <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
                     <!-- Experience Timeline -->
                     <div class="w-full lg:w-1/3">
-                        <h3 class="text-2xl font-bold heading-font text-gray-800 dark:text-white mb-6">Experience</h3>
-                        <div class="relative border-l-2 border-gray-200 dark:border-gray-700 pl-8">
+                        <h3 class="text-2xl font-bold heading-font mb-6">Experience</h3>
+                        <div class="relative border-l-2 border-gray-200 pl-8">
                             <div id="experience-timeline-buttons"></div>
                         </div>
                     </div>
                     <!-- Education Timeline -->
                     <div class="w-full lg:w-1/3">
-                        <h3 class="text-2xl font-bold heading-font text-gray-800 dark:text-white mb-6">Education</h3>
-                        <div class="relative border-l-2 border-gray-200 dark:border-gray-700 pl-8">
+                        <h3 class="text-2xl font-bold heading-font mb-6">Education</h3>
+                        <div class="relative border-l-2 border-gray-200 pl-8">
                             <div id="education-timeline-buttons"></div>
                         </div>
                     </div>
                     <!-- Timeline Content Display -->
-                    <div id="timeline-content-display" class="w-full lg:w-1/3 section-card p-8 rounded-xl shadow-inner border border-gray-200 dark:border-gray-700">
+                    <div id="timeline-content-display" class="w-full lg:w-1/3 section-card p-8 rounded-xl shadow-inner border border-gray-200">
                         <!-- Content will be dynamically inserted here -->
-                        <p class="text-gray-500 dark:text-gray-500">Click a timeline item to view its details.</p>
+                        <p class="text-gray-500">Click a timeline item to view its details.</p>
                     </div>
                 </div>
             </div>
@@ -349,8 +331,8 @@
         <section id="skills" class="py-20 fade-in-section">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold heading-font text-blue-600 dark:text-blue-400">Core Competencies & Technologies</h2>
-                    <p class="text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">A visual representation of my technical skills. Explore the radar chart for overall proficiency.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold heading-font text-blue-600">Core Competencies & Technologies</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A visual representation of my technical skills. Explore the radar chart for overall proficiency.</p>
                 </div>
                 <div class="flex flex-col items-center justify-center gap-12">
                     <div class="w-full">
@@ -368,11 +350,11 @@
         </section>
 
         <!-- Section: Projects -->
-        <section id="projects" class="py-20 section-card fade-in-section border-t border-b border-gray-100 dark:border-gray-800">
+        <section id="projects" class="py-20 section-card fade-in-section border-t border-b border-gray-100">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold heading-font text-blue-600 dark:text-blue-400">Projects & Publications</h2>
-                    <p class="text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">A selection of projects that showcase my practical skills and passion for technology. <span class="font-semibold">Click on a project for more details.</span></p>
+                    <h2 class="text-3xl md:text-4xl font-bold heading-font text-blue-600">Projects & Publications</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A selection of projects that showcase my practical skills and passion for technology. <span class="font-semibold">Click on a project for more details.</span></p>
                 </div>
                 <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Project cards will be dynamically inserted here -->
@@ -381,26 +363,26 @@
         </section>
 
         <!-- Section: Contact -->
-        <section id="contact" class="py-20 section-card fade-in-section border-t border-gray-100 dark:border-gray-800">
+        <section id="contact" class="py-20 section-card fade-in-section border-t border-gray-100">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold heading-font text-blue-600 dark:text-blue-400">Get In Touch</h2>
-                <p class="text-gray-600 dark:text-gray-400 mt-4 mb-8">Feel free to reach out for collaborations or opportunities.</p>
+                <h2 class="text-3xl md:text-4xl font-bold heading-font text-blue-600">Get In Touch</h2>
+                <p class="text-gray-600 mt-4 mb-8">Feel free to reach out for collaborations or opportunities.</p>
                 <div class="inline-flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8">
                     <div class="flex items-center space-x-3">
-                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 012-2V7a2 2 0 01-2-2H5a2 2 0 01-2 2v10a2 2 0 012 2z"></path>
                         </svg>
-                        <a href="mailto:sourav.maheta676@gmail.com" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400" aria-label="Send an email to sourav.maheta676@gmail.com">sourav.maheta676@gmail.com</a>
+                        <a href="mailto:sourav.maheta676@gmail.com" class="text-gray-700 hover:text-blue-600" aria-label="Send an email to sourav.maheta676@gmail.com">sourav.maheta676@gmail.com</a>
                     </div>
                     <div class="flex items-center space-x-3">
-                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                         </svg>
-                        <span class="text-gray-700 dark:text-gray-300">+91 8806145164</span>
+                        <span class="text-gray-700">+91 8806145164</span>
                     </div>
                 </div>
                 <div class="flex flex-wrap justify-center items-center space-x-6 mt-6">
-                    <a href="https://www.linkedin.com/in/sourav-maheta-4b646b21a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300" aria-label="Visit Sourav Maheta's LinkedIn profile">
+                    <a href="https://www.linkedin.com/in/sourav-maheta-4b646b21a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-blue-600 transition-colors duration-300" aria-label="Visit Sourav Maheta's LinkedIn profile">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill-rule="evenodd" d="M19 0H5C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5V5c0-2.761-2.239-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765s1.55-1.765 3.25-1.765c3.54 0 4.75 2.07 4.75 5.834V19z" clip-rule="evenodd" />
                         </svg>
@@ -414,12 +396,12 @@
     <div id="project-modal-overlay" class="modal-overlay hidden">
         <div class="modal-content">
             <button class="close-button" id="close-modal-button" aria-label="Close modal">&times;</button>
-            <h3 id="modal-project-title" class="text-2xl font-bold heading-font text-gray-800 dark:text-white mb-3"></h3>
-            <p id="modal-project-category" class="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-2"></p>
+            <h3 id="modal-project-title" class="text-2xl font-bold heading-font mb-3"></h3>
+            <p id="modal-project-category" class="text-sm font-semibold text-blue-600 mb-2"></p>
             <div id="modal-project-body">
                 <!-- Project details or case study content will be loaded here -->
             </div>
-            <a id="modal-project-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="View project or publication" class="hidden inline-block mt-6 px-4 py-2 font-semibold rounded-lg text-white bg-gray-800 dark:bg-gray-200 dark:text-gray-800 hover:bg-black dark:hover:bg-white transition-colors duration-300">View Project/Publication</a>
+            <a id="modal-project-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="View project or publication" class="hidden inline-block mt-6 px-4 py-2 font-semibold rounded-lg text-white bg-gray-800 hover:bg-black">View Project/Publication</a>
         </div>
     </div>
 
@@ -427,11 +409,6 @@
     <div id="skill-tooltip" class="fixed z-50 bg-gray-800 text-white text-xs px-3 py-2 rounded-lg pointer-events-none opacity-0 transition-opacity hidden"></div>
 
     <div class="utility-buttons">
-        <button id="dark-mode-toggle" class="utility-button" aria-label="Toggle dark mode">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-        </button>
         <button id="back-to-top" class="utility-button" aria-label="Back to top">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
@@ -439,7 +416,7 @@
         </button>
     </div>
 
-    <footer class="bg-gray-800 text-white dark:bg-black py-4 transition-colors duration-300">
+    <footer class="bg-gray-800 text-white py-4">
         <div class="container mx-auto px-6 text-center text-sm">
             <p>&copy; 2025 Sourav Maheta. All rights reserved.</p>
         </div>
@@ -575,16 +552,9 @@
                     id: 'ai-financial',
                     title: "AI-Driven Financial Market Analysis",
                     category: "AI, Python, Data Science",
-                    description: "A detailed case study showcasing how I used Python and AI to analyze and forecast financial market volatility. Click to see the full case study.",
+                    description: "Developed an end-to-end Python-based system to analyze and forecast financial market volatility. The project utilized advanced machine learning models to identify trends and predict market behavior with high accuracy. This demonstrates the application of AI to complex financial problems.",
                     link: null,
-                    isCaseStudy: true,
                     icon: "📈",
-                    caseStudy: {
-                        problem: "Financial markets are notoriously volatile, making it difficult for traders and analysts to predict short-term price movements. The challenge was to develop an intelligent system that could not only analyze historical stock performance but also forecast future volatility with a high degree of accuracy.",
-                        role: "As the lead developer on this project, I was responsible for the end-to-end pipeline. My tasks included data acquisition, exploratory data analysis, feature engineering, model selection, training, and evaluation. I specifically focused on creating a robust forecasting model and developing a clear, actionable visualization of the results.",
-                        technologies: ["Python", "Pandas", "NumPy", "Scikit-learn", "TensorFlow", "Matplotlib", "Jupyter Notebooks"],
-                        outcome: "The project successfully delivered a predictive model with a mean absolute error of less than 5% for short-term volatility forecasting. The accompanying analysis provided key insights into the historical performance of NVDA, identifying major trends and potential areas of interest for investors. This project validated my ability to apply complex AI concepts to real-world financial problems."
-                    }
                 }, {
                     id: 'safety-device',
                     title: "Women's Smart Safety Device",
@@ -621,21 +591,6 @@
             const get = (id) => document.getElementById(id);
             const getAll = (selector) => document.querySelectorAll(selector);
 
-            // Dark Mode Toggle Logic
-            const darkModeToggle = get('dark-mode-toggle');
-            const html = document.documentElement;
-
-            const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            if (currentTheme === 'dark') {
-                html.classList.add('dark');
-            }
-
-            darkModeToggle.addEventListener('click', () => {
-                html.classList.toggle('dark');
-                const newTheme = html.classList.contains('dark') ? 'dark' : 'light';
-                localStorage.setItem('theme', newTheme);
-            });
-
             // Preloader Logic
             const preloader = get('preloader');
             window.addEventListener('load', () => {
@@ -663,11 +618,11 @@
                         const button = document.createElement('div');
                         button.className = 'mb-8 relative';
                         button.innerHTML = `
-                        <div class="absolute -left-10 mt-2 w-5 h-5 bg-blue-600 dark:bg-blue-400 rounded-full z-10 border-4 border-white dark:border-gray-900 transition-colors duration-300"></div>
-                        <button data-id="${item.id}" class="timeline-button w-full text-left p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 font-medium transition-colors duration-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 dark:hover:bg-blue-400 dark:hover:border-blue-400" aria-label="View details for ${item.title}">
-                            <p class="text-sm font-light text-gray-500 dark:text-gray-400 hover:text-white transition-colors duration-300">${item.period}</p>
-                            <p class="text-lg font-bold text-gray-800 dark:text-gray-100">${item.title}</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 font-normal hover:text-white transition-colors duration-300">${item.institution}</p>
+                        <div class="absolute -left-10 mt-2 w-5 h-5 bg-blue-600 rounded-full z-10 border-4 border-white"></div>
+                        <button data-id="${item.id}" class="timeline-button w-full text-left p-4 rounded-lg border-2 border-gray-200 font-medium transition-colors duration-300 hover:bg-blue-600 hover:text-white hover:border-blue-600" aria-label="View details for ${item.title}">
+                            <p class="text-sm font-light text-gray-500 hover:text-white transition-colors duration-300">${item.period}</p>
+                            <p class="text-lg font-bold text-gray-800">${item.title}</p>
+                            <p class="text-sm text-gray-600 font-normal hover:text-white transition-colors duration-300">${item.institution}</p>
                         </button>`;
                         container.appendChild(button);
                     });
@@ -685,10 +640,10 @@
                         const item = portfolioData.journey.find(d => d.id === itemId);
                         if (item) {
                             timelineContentContainer.innerHTML = `
-                            <h4 class="text-xl font-bold heading-font text-gray-800 dark:text-white mb-2">${item.title}</h4>
-                            <p class="text-gray-600 dark:text-gray-400 mb-1">${item.institution}</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-500 mb-4">${item.period}</p>
-                            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">${item.description}</p>
+                            <h4 class="text-xl font-bold heading-font text-gray-800 mb-2">${item.title}</h4>
+                            <p class="text-gray-600 mb-1">${item.institution}</p>
+                            <p class="text-sm text-gray-500 mb-4">${item.period}</p>
+                            <p class="text-gray-700 leading-relaxed">${item.description}</p>
                         `;
                         }
                     });
@@ -743,7 +698,7 @@
                                     color: 'rgba(0, 0, 0, 0.1)'
                                 },
                                 pointLabels: {
-                                    color: 'var(--primary-text)',
+                                    color: 'black',
                                     font: {
                                         size: 14
                                     }
@@ -760,7 +715,7 @@
                                 display: true,
                                 position: 'bottom',
                                 labels: {
-                                    color: 'var(--primary-text)',
+                                    color: 'black',
                                     font: {
                                         family: 'Inter',
                                     }
@@ -777,7 +732,7 @@
                 portfolioData.skillsCategorized.forEach(category => {
                     category.skills.forEach(skill => {
                         const skillElement = document.createElement('div');
-                        skillElement.className = 'skill-tag-item p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 font-medium transition-colors duration-300 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer';
+                        skillElement.className = 'skill-tag-item p-4 rounded-lg border-2 border-gray-200 font-medium transition-colors duration-300 hover:bg-gray-200 cursor-pointer';
                         skillElement.textContent = skill.name;
                         skillElement.setAttribute('data-description', skill.description);
                         skillElement.setAttribute('aria-label', skill.description);
@@ -799,13 +754,13 @@
                 // Render project cards
                 portfolioData.projects.forEach(project => {
                     const card = document.createElement('div');
-                    card.className = 'project-card section-card p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-800 flex flex-col justify-between cursor-pointer';
+                    card.className = 'project-card section-card p-6 rounded-xl shadow-md border border-gray-100 flex flex-col justify-between cursor-pointer';
                     card.innerHTML = `
                         <div>
                             <span class="text-xl">${project.icon}</span>
-                            <h3 class="text-xl font-bold heading-font text-gray-800 dark:text-white mt-2 mb-2">${project.title}</h3>
-                            <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase">${project.category}</span>
-                            <p class="text-gray-600 dark:text-gray-400 line-clamp-3 mt-2">${project.description}</p>
+                            <h3 class="text-xl font-bold heading-font text-gray-800 mt-2 mb-2">${project.title}</h3>
+                            <span class="text-xs font-bold text-blue-600 uppercase">${project.category}</span>
+                            <p class="text-gray-600 line-clamp-3 mt-2">${project.description}</p>
                         </div>
                     `;
                     card.addEventListener('click', () => showProjectModal(project));
@@ -816,40 +771,18 @@
                 function showProjectModal(project) {
                     modalTitle.textContent = project.title;
                     modalCategory.textContent = project.category;
-
                     modalBody.innerHTML = ''; // Clear previous content
 
-                    if (project.isCaseStudy) {
+                    if (project.isDemo) {
                         modalBody.innerHTML = `
-                            <div class="mb-4">
-                                <h4 class="font-bold text-gray-800 dark:text-gray-200">Problem Statement</h4>
-                                <p class="text-gray-700 dark:text-gray-300 mt-1">${project.caseStudy.problem}</p>
-                            </div>
-                            <div class="mb-4">
-                                <h4 class="font-bold text-gray-800 dark:text-gray-200">My Role</h4>
-                                <p class="text-gray-700 dark:text-gray-300 mt-1">${project.caseStudy.role}</p>
-                            </div>
-                            <div class="mb-4">
-                                <h4 class="font-bold text-gray-800 dark:text-gray-200">Technologies Used</h4>
-                                <div class="flex flex-wrap gap-2 mt-1">
-                                    ${project.caseStudy.technologies.map(tech => `<span class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-semibold px-2.5 py-0.5 rounded-full">${tech}</span>`).join('')}
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-gray-800 dark:text-gray-200">Outcome & Impact</h4>
-                                <p class="text-gray-700 dark:text-gray-300 mt-1">${project.caseStudy.outcome}</p>
-                            </div>
-                        `;
-                    } else if (project.isDemo) {
-                        modalBody.innerHTML = `
-                            <p class="text-gray-700 dark:text-gray-300">${project.description}</p>
+                            <p class="text-gray-700">${project.description}</p>
                             <div class="demo-container">
                                 <img src="${project.link}" alt="Live demo of ${project.title}" class="w-full h-auto object-cover">
                             </div>
                         `;
                     } else {
                         modalBody.innerHTML = `
-                            <p class="text-gray-700 dark:text-gray-300">${project.description}</p>
+                            <p class="text-gray-700">${project.description}</p>
                         `;
                     }
 
